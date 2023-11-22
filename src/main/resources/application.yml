@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: init
+    active: ${PROFILE:init}
 
 init:
-  file: src/main/resources/init.txt
+  file: ${PATH:src/main/resources/init.txt}
