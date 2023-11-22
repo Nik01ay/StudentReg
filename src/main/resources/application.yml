@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    active: default
+
+init:
+  file: src/main/resources/init.txt
