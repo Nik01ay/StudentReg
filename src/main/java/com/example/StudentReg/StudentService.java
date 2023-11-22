@@ -69,8 +69,8 @@ public class StudentService {
     public int addNewStudent(String firstName, String lastName, Integer age) {
 
         // studentRepo.getStudentEntityHashTable().
-        Integer id = studentRepo.getSize();
-        StudentEntity student = new StudentEntity(id, firstName, lastName, age);
+
+        StudentEntity student = new StudentEntity( firstName, lastName, age);
         MyEvent event = new MyEvent(this, "add new student " + student);
         publisher.publishEvent(event);
         return studentRepo.addStudent(student);
@@ -103,7 +103,7 @@ public class StudentService {
 
     }
 
-    public void dellAll(Integer id) {
+    public void dellAll() {
         studentRepo.deleteAll();
         MyEvent event = new MyEvent(this, "all students delete");
         publisher.publishEvent(event);

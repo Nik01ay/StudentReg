@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.Hashtable;
 import java.util.stream.Collectors;
 
@@ -53,15 +54,18 @@ public class StudentRepo implements TextFileInteface {
 
     public int addStudent(StudentEntity student) {
         if (student != null) {
-            Integer id = studentEntityHashTable.size();
-            while (studentEntityHashTable.containsKey(id)) {
-                id++;
+            Integer id;
+            if ((student.getId() == null) || (student.getId() == 0)) {
+                id = Collections.max(studentEntityHashTable.keySet()) + 1; // получаем максимальный ключ и увеличиваем на 1
+            } else {
+                id = student.getId();
             }
+            student.setId(id);
             studentEntityHashTable.put(id, student);
-
         }
         return studentEntityHashTable.size();
     }
+
 
     public int deleteStudent(StudentEntity student) {
         studentEntityHashTable.remove(student.getId());
@@ -70,10 +74,9 @@ public class StudentRepo implements TextFileInteface {
     }
 
     public int deleteStudentById(Integer id) {
-       if (studentEntityHashTable.containsKey(id))
-    {
-        studentEntityHashTable.remove(id);
-    }
+        if (studentEntityHashTable.containsKey(id)) {
+            studentEntityHashTable.remove(id);
+        }
         return studentEntityHashTable.size();
     }
 

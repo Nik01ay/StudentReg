@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: default
+    active: init
 
 init:
   file: src/main/resources/init.txt

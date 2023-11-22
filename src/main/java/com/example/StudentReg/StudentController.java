@@ -44,8 +44,8 @@ public class StudentController {
 
     }
     @ShellMethod(key = "da")
-    public void dellAll(Integer id) {
-        studentService.dellAll(id);
+    public void dellAll() {
+        studentService.dellAll();
 
     }
 
