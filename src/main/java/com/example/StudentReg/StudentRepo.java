@@ -63,7 +63,8 @@ public class StudentRepo implements TextFileInteface {
             student.setId(id);
             studentEntityHashTable.put(id, student);
         }
-        return studentEntityHashTable.size();
+        assert student != null;
+        return  student.getId();
     }
 
 
@@ -73,11 +74,13 @@ public class StudentRepo implements TextFileInteface {
         return studentEntityHashTable.size();
     }
 
-    public int deleteStudentById(Integer id) {
+    public Boolean deleteStudentById(Integer id) {
         if (studentEntityHashTable.containsKey(id)) {
             studentEntityHashTable.remove(id);
+            return true;
         }
-        return studentEntityHashTable.size();
+
+        return false;
     }
 
     public StudentEntity getStudentById(Integer id) {

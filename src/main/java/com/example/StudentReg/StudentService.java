@@ -45,17 +45,24 @@ public class StudentService {
     }
 
     public void print(Integer id) {
+
         MyEvent event = new MyEvent(this, "student: ");
         publisher.publishEvent(event);
-        System.out.println(studentRepo.getStudentById(id).toString());
+        System.out.println(studentRepo.getStudentById(id));
 
     }
 
     public int dellById(Integer id) {
 
-        studentRepo.deleteStudentById(id);
-        MyEvent event = new MyEvent(this, "student delete id=" + id);
-        publisher.publishEvent(event);
+        if (studentRepo.deleteStudentById(id)) {
+
+            MyEvent event = new MyEvent(this, "student delete id=" + id);
+            publisher.publishEvent(event);
+        }
+        else {
+            MyEvent eventNotFound = new MyEvent(this, "student not found id=" + id);
+            publisher.publishEvent(eventNotFound);
+        }
         return studentRepo.getStudentEntityHashTable().size();
 
     }
@@ -71,9 +78,12 @@ public class StudentService {
         // studentRepo.getStudentEntityHashTable().
 
         StudentEntity student = new StudentEntity( firstName, lastName, age);
+
+        studentRepo.addStudent(student);
+
         MyEvent event = new MyEvent(this, "add new student " + student);
         publisher.publishEvent(event);
-        return studentRepo.addStudent(student);
+        return studentRepo.getSize();
     }
 
     public String save(String fileName) {
