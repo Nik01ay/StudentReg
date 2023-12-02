@@ -11,6 +11,14 @@ java {
 	sourceCompatibility = '17'
 }
 
+jar {
+	manifest {
+		attributes(
+				'Main-Class': 'com.example.StudentReg.StudentRegApplication'
+		)
+	}
+}
+
 repositories {
 	mavenCentral()
 }
@@ -22,12 +30,13 @@ ext {
 dependencies {
 	implementation 'org.springframework.shell:spring-shell-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.projectlombok:lombok:1.18.26'
 }
 
 dependencyManagement {
 	imports {
-		mavenBom "org.springframework.shell:spring-shell-dependencies:${springShellVersion}"
+		mavenBom "org.springframework.shell:spring-shell-dependencies:3.1.5"
 	}
 }
 
@@ -37,4 +46,10 @@ tasks.named('bootBuildImage') {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+tasks.named('bootBuildImage') {
+	builder = 'paketobuildpacks/builder:jre'
+}
+bootJar {
+    enabled = true
 }

@@ -3,4 +3,4 @@ spring:
     active: ${PROFILE:init}
 
 init:
-  file: ${PATH:src/main/resources/init.txt}
+  file: ${FILEPATH:src/main/resources/init.txt}

@@ -35,3 +35,8 @@ This application uses Spring Boot and Spring Shell. The following dependencies a
 
 - org.springframework.boot:spring-boot-starter
 - org.springframework.shell:spring-shell-starter
+
+## Docker
+
+-  docker build -t streg .
+-  docker run  streg 
