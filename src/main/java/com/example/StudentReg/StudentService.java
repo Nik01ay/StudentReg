@@ -75,7 +75,6 @@ public class StudentService {
 
     public int addNewStudent(String firstName, String lastName, Integer age) {
 
-        // studentRepo.getStudentEntityHashTable().
 
         StudentEntity student = new StudentEntity( firstName, lastName, age);
 

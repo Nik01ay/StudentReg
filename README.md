@@ -39,4 +39,5 @@ This application uses Spring Boot and Spring Shell. The following dependencies a
 ## Docker
 
 -  docker build -t streg .
--  docker run  streg 
+-  docker run -it -e  PROFILE='init' -e FILEPATH='init.txt' streg 
+-  docker run -it -e  PROFILE='none'  streg

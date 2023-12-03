@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
@@ -43,7 +44,12 @@ public class StudentRepo implements TextFileInteface {
 
     public int loadFromFile(String filename) {
 
-        readFile(filename).forEach(s -> addStudent(StudentConvertor.stringToStudent(s)));
+        List<String> stlist = readFile(filename);
+
+        if (!stlist.isEmpty()) {
+            stlist.forEach(s -> addStudent(StudentConvertor.stringToStudent(s)));
+        }
+
         return studentEntityHashTable.size();
     }
 
@@ -56,7 +62,10 @@ public class StudentRepo implements TextFileInteface {
         if (student != null) {
             Integer id;
             if ((student.getId() == null) || (student.getId() == 0)) {
-                id = Collections.max(studentEntityHashTable.keySet()) + 1; // получаем максимальный ключ и увеличиваем на 1
+                if (studentEntityHashTable.size()>0) {
+                    id = Collections.max(studentEntityHashTable.keySet()) + 1; // получаем максимальный ключ и увеличиваем на 1
+                }
+                else id = 1;
             } else {
                 id = student.getId();
             }
@@ -64,7 +73,7 @@ public class StudentRepo implements TextFileInteface {
             studentEntityHashTable.put(id, student);
         }
         assert student != null;
-        return  student.getId();
+        return student.getId();
     }
 
 

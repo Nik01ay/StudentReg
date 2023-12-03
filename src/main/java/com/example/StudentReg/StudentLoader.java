@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 
+import java.io.File;
+
 @Profile("init")
 public class StudentLoader {
 
@@ -18,7 +20,7 @@ public class StudentLoader {
     @PostConstruct
     public void loadFromFile() {
         System.out.println("zagruska from server: "  + path);
-         if (path != null) {
+         if (path != null)  {
             studentRepo.loadFromFile(path);
         }
     }

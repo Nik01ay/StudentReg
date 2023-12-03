@@ -30,17 +30,20 @@ public interface TextFileInteface {
         }
 
         public default List<String> readFile(String filename) {
+
             List<String> lines = new ArrayList<>();
             String line;
-
-            try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-                while ((line = reader.readLine()) != null) {
-                    lines.add(line);
+            if (new File(filename).exists()) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+                    while ((line = reader.readLine()) != null) {
+                        lines.add(line);
+                    }
+                } catch (IOException e) {
+                    System.out.println("Ошибка чтения файла: " + e.getMessage());
+                    return lines;
                 }
-            } catch (IOException e) {
-                System.out.println("Ошибка чтения файла: " + e.getMessage());
-                return lines;
             }
+
             return lines;
         }
 
